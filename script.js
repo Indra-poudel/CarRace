@@ -101,7 +101,7 @@ function Game(parentElement) {
       var Obstacles = document.createElement("img");
       Obstacles.classList.add("car");
       Obstacles.id = this.uniqueId;
-      Obstacles.src = "images/" + this.carimageindex + ".png";
+      Obstacles.src = "./images/" + this.carimageindex + ".png";
       this.parentElement.appendChild(Obstacles);
       Obstacles.style.left = this.x + "px";
       this.element = Obstacles;
