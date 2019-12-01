@@ -1,0 +1,45 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  background: lightgoldenrodyellow;
+}
+.container {
+  text-align: center;
+  margin-top: 10px;
+  margin-left: 50px;
+}
+.gamearea-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+.road {
+  background-image: url("../Images/road.png");
+  background-size: 100%, 100%;
+  background-repeat: repeat-y;
+  height: 600px;
+  width: 400px;
+}
+.police-car {
+  background-image: url("../Images/police.gif");
+  background-size: 100%, 100%;
+  position: absolute;
+  height: 212px;
+  width: 98px;
+  transition: left 0.5s,transform 0.5s;
+  
+}
+.car {
+  position: absolute;
+  top: -400px;
+  /* transform: rotate('180deg'); */
+}
+.scroeWrapper{
+    position: absolute;
+    top:10px;
+    color: white;
+    font-size: 20px;
+
+}
