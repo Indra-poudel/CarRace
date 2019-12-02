@@ -33,10 +33,15 @@ function Game(parentElement) {
     this.repeat = setInterval(this.update.bind(this), 1);
     return this;
   };
+  this.start=function()
+  {
+
+  }
   this.restart=function()
   {
   
     this.reset();
+    location.reload();
     
   }
   this.reset =function()
@@ -86,6 +91,7 @@ function Game(parentElement) {
           this.score++;
           console.log("score",this.score);
           this.ScoreElement.innerHTML=this.score;
+          document.getElementById("score2").innerHTML=this.score;
         }
         ObstaclesArr[i].delete();
       
