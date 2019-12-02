@@ -119,12 +119,12 @@ function Game(parentElement) {
   this.controller = function() {
     if (Game.control == 39 || Game.control == 68) {
       this.carIndex++;
-      this.posx = this.getIndex() * 150;
+      this.posx = this.getIndex() * 200;
       this.element.style.left = this.posx + "px";
     }
     if (Game.control == 37 || Game.control == 65) {
       this.carIndex--;
-      this.posx = this.getIndex() * 150;
+      this.posx = this.getIndex() * 200;
       this.element.style.left = this.posx + "px";
     }
     Game.control = 0;
@@ -140,7 +140,7 @@ function Game(parentElement) {
     this.y = -450;
     this.dx=0.01;
     this.parentElement = parentElement;
-    this.x = Math.floor(Math.random() * 3) * 150;
+    this.x = Math.floor(Math.random() * 3) * 200;
     this.element = null;
     this.carimageindex = Math.abs(Math.floor(Math.random() * 6) + 1);
 
@@ -169,7 +169,7 @@ function Game(parentElement) {
       var a = this.x - PoliceCar.posx;
       var b = PoliceCar.posy - this.y;
       var dis = Math.sqrt(a * a + b * b);
-      if (dis < 150) {
+      if (dis <200) {
         return true;
       } else {
         return false;
