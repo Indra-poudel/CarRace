@@ -65,7 +65,7 @@ function Game(parentElement) {
 
 
   this.obstractionspwan = function() {
-    if (parseInt(this.timer) / 200 === 1) {
+    if (parseInt(this.timer) / 185 === 1) {
       var ob1 = new Obstacles(this.parentElement);
       ob1.Create();
       ObstaclesArr.push(ob1);
