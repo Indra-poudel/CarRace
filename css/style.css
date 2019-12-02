@@ -24,6 +24,7 @@ body {
   background-repeat: repeat-y;
   height: 600px;
   width: 500px;
+   /* transition: left 1s; */
 }
 .police-car {
   background-image: url("../Images/police.gif");
@@ -36,6 +37,11 @@ body {
   
 }
 .car {
+  position: absolute;
+ 
+  /* transform: rotate('180deg'); */
+}
+.missle {
   position: absolute;
  
   /* transform: rotate('180deg'); */
@@ -77,6 +83,10 @@ body {
 .firebefor{
 
   position: absolute;
+  top:-400px;
+  width: 200px;
+  height: 200px;
+  z-index: 3;
   
 
 }
