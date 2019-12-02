@@ -2,7 +2,7 @@ function Game(parentElement) {
   var ObstaclesArr = [];
   this.posx = 0;
   this.score=0;
-  this.posy = 320;
+  this.posy = 380;
   this.timer = 0;
   this.lane = 3;
   this.carIndex = 0;
@@ -33,16 +33,11 @@ function Game(parentElement) {
     this.obstractionspwan();
     this.controller();
     this.draw();
-    this.scoreUpdate();
+  //  this.scoreUpdate();
    
    
   };
-  this.scoreUpdate=function()
-  {
-      this.score= this.score+0.1;
-      this.ScoreElement.innerHTML=this.score.toString().substring(0, 5);
-      
-  }
+
 
   this.obstractionspwan = function() {
     if (parseInt(this.timer) / 300 === 1) {
@@ -61,6 +56,12 @@ function Game(parentElement) {
         {
             clearInterval(this.repeat);
             this.element.style.transform=" rotate(-80deg)";
+        }
+        if(ObstaclesArr[i].scoreUpdate()==true)
+        {
+          this.score++;
+          console.log("score",this.score);
+          this.ScoreElement.innerHTML=this.score;
         }
         ObstaclesArr[i].delete();
       
@@ -132,6 +133,17 @@ function Game(parentElement) {
         }
 
       };
+      this.scoreUpdate=function()
+      {
+         if(this.y==400)
+         {
+           return true;
+         }
+         else{
+           return false;
+         }
+          
+      }
   }
 }
 var Road = document.getElementById("road");

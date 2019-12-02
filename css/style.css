@@ -33,7 +33,7 @@ body {
 }
 .car {
   position: absolute;
-  top: -400px;
+ 
   /* transform: rotate('180deg'); */
 }
 .scroeWrapper{
