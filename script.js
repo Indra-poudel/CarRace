@@ -1,4 +1,5 @@
 function Game(parentElement) {
+//  this.angle=0;
   var ObstaclesArr = [];
   this.posx = 0;
   this.score = 0;
@@ -9,6 +10,7 @@ function Game(parentElement) {
   this.control = 0;
   this.repeat;
   this.dx = 1;
+  this.speed=1;
   this.element = null;
   this.ScoreElement = null;
   this.GameOverScreen = null;
@@ -58,6 +60,7 @@ function Game(parentElement) {
     this.lane = 3;
     this.carIndex = 0;
     this.control = 0;
+    this.speed=0;
     this.repeat;
     this.dx = 1;
     this.GameOverScreen.style.top = 600 + "px";
@@ -76,11 +79,18 @@ function Game(parentElement) {
     this.obstractionspwan();
     this.controller();
     this.draw();
-    //  this.scoreUpdate();
+    this.speed++;
+
+    
   };
 
   this.obstractionspwan = function() {
+    // if (parseInt(this.timer) /60 == 1 || parseInt(this.timer) /120== 1) {
+    //   this.element.style.transform = " rotate(0deg)";
+     
+    // }
     if (parseInt(this.timer) / 185 === 1) {
+    //  this.element.style.transform = " rotate(0deg)";
       var ob1 = new Obstacles(this.parentElement);
       ob1.Create();
       ObstaclesArr.push(ob1);
@@ -90,7 +100,7 @@ function Game(parentElement) {
   };
   this.draw = function() {
     for (var i = 0; i < ObstaclesArr.length; i++) {
-      ObstaclesArr[i].move();
+      ObstaclesArr[i].move(this.speed);
 
       if (ObstaclesArr[i].checkCollision(this) == true) {
         clearInterval(this.repeat);
@@ -121,11 +131,26 @@ function Game(parentElement) {
       this.carIndex++;
       this.posx = this.getIndex() * 200;
       this.element.style.left = this.posx + "px";
+      this.element.style.transform = " rotate(+20deg)";
+      
+    var interval1=  setInterval(function()
+      {
+        this.element.style.transform = " rotate(0deg)";
+        clearInterval(interval1);
+      }.bind(this),250);
+     
+     
     }
     if (Game.control == 37 || Game.control == 65) {
       this.carIndex--;
       this.posx = this.getIndex() * 200;
       this.element.style.left = this.posx + "px";
+      this.element.style.transform = " rotate(-20deg)";
+      var interval2=  setInterval(function()
+      {
+        this.element.style.transform = " rotate(0deg)";
+        clearInterval(interval2);
+      }.bind(this),250);
     }
     Game.control = 0;
   };
@@ -153,8 +178,8 @@ function Game(parentElement) {
       Obstacles.style.left = this.x + "px";
       this.element = Obstacles;
     };
-    this.move = function() {
-      console.log(this.dx);
+    this.move = function(speed) {
+      console.log(speed);
       this.y = this.y+Math.exp(this.dx);
       this.dx=this.dx+0.005;
       this.element.style.top = this.y + "px";
