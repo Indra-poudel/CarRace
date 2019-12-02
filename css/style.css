@@ -10,10 +10,13 @@ body {
   text-align: center;
   margin-top: 10px;
   margin-left: 50px;
+  
 }
 .gamearea-wrapper {
   overflow: hidden;
   position: relative;
+  /* height: 600px;
+  width: 400px; */
 }
 .road {
   background-image: url("../Images/road.png");
@@ -42,4 +45,30 @@ body {
     color: white;
     font-size: 20px;
 
+}
+.after-game-Over{
+
+  font: 30px sans-serif;
+  text-align: center;
+  margin: auto;
+  height: 600px;
+  width: 400px;
+  background-color: #e7e7e7;
+  padding-top: 200px;
+  position: absolute;
+  transition: top 2s;
+  top:600px; 
+
+}
+.btn{
+  background-color: #555555; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 }

@@ -2,7 +2,7 @@ function Game(parentElement) {
   var ObstaclesArr = [];
   this.posx = 0;
   this.score=0;
-  this.posy = 380;
+  this.posy = 350;
   this.timer = 0;
   this.lane = 3;
   this.carIndex = 0;
@@ -11,11 +11,16 @@ function Game(parentElement) {
   this.dx = 1;
   this.element = null;
   this.ScoreElement=null;
+  this.GameOverScreen=null;
+  this.restartbtn=null;
   this.parentElement = parentElement;
   var that = this;
   this.init = function() {
     var PoliceCar = document.createElement("div");
     this.ScoreElement = document.getElementById("score");
+    this.GameOverScreen=document.getElementById("after-game-Over");
+    this.restartbtn=document.getElementById("btn");
+    this.restartbtn.onclick = this.restart.bind(this);
     PoliceCar.classList.add("police-car");
     PoliceCar.style.top = this.posy + "px";
     PoliceCar.style.left = this.posx + "px";
@@ -28,6 +33,21 @@ function Game(parentElement) {
     this.repeat = setInterval(this.update.bind(this), 1);
     return this;
   };
+  this.restart=function()
+  {
+  
+    this.reset();
+    
+  }
+  this.reset =function()
+  {
+    console.log("click");
+    this.posx = 0;
+    this.score=0;
+    this.posy = 350;
+    this.GameOverScreen.style.top=600+'px';
+    
+  }
   this.update = function() {
     this.backgroundScroll();
     this.obstractionspwan();
@@ -55,8 +75,12 @@ function Game(parentElement) {
         if(ObstaclesArr[i].checkCollision(this)==true)
         {
             clearInterval(this.repeat);
+            this.repeat=null;
             this.element.style.transform=" rotate(-80deg)";
+            this.GameOverScreen.style.top=0+'px';
         }
+           // this.GameOverScreen.style.left=0+'px';
+            
         if(ObstaclesArr[i].scoreUpdate()==true)
         {
           this.score++;
