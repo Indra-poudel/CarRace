@@ -87,6 +87,7 @@ function Game(parentElement) {
     this.backgroundScroll();
     this.obstractionspwan();
     this.controller();
+  //  this.fire();
     this.draw();
     this.speed++;
   };
@@ -102,9 +103,11 @@ function Game(parentElement) {
     this.timer++;
   };
   this.draw = function() {
+    
     for (var i = 0; i < ObstaclesArr.length; i++) {
+     
       ObstaclesArr[i].move(this.speed);
-
+      
       if (ObstaclesArr[i].checkCollision(this) == true) {
         this.blastimg.style.top = ObstaclesArr[i].y + 50 + "px";
         this.blastimg.style.left = ObstaclesArr[i].x - 20 + "px";
@@ -122,14 +125,17 @@ function Game(parentElement) {
          
       }
       // this.GameOverScreen.style.left=0+'px';
-
+    
       if (ObstaclesArr[i].scoreUpdate() == true) {
         this.score++;
      
         this.ScoreElement.innerHTML = this.score;
         document.getElementById("score2").innerHTML = this.score;
       }
+      
       ObstaclesArr[i].delete();
+      this.fire(i);
+    
     }
   };
   this.backgroundScroll = function() {
@@ -158,8 +164,10 @@ function Game(parentElement) {
     if(Game.control==38)
     {
      var mis1=  new missile(this.parentElement);
+     mis1.mcreate(this.posx,this.posy);
      missleArr.push(mis1);
-    // this.fire();
+     console.log(mis1);
+   
     }
     if (Game.control == 37 || Game.control == 65) {
       this.carIndex--;
@@ -177,16 +185,34 @@ function Game(parentElement) {
     Game.control = 0;
   };
 
-  this.fire=function()
+  this.fire=function(j)
   {
-    if(missleArr.length>0)
-    {
-    for(var i=0;i< missleArr.length;i++)
-    {
-      missleArr[i].mcreate();
-      missileArr[i].move();
-    }
+   if(missleArr.length>0)
+   {
+    
+  for(var i=0;i<missleArr.length;i++)
+  {
+    missleArr[i].move();
+      if(missleArr[i].checkCollision(ObstaclesArr)==true)
+      {
+       
+        // this.blastimg.style.top = ObstaclesArr[j].y + 50 + "px";
+        // this.blastimg.style.left = ObstaclesArr[j].x - 20 + "px";
+     
+       // missleArr[i].delete(true);
+       // clearInterval(this.repeat);
+       //ObstaclesArr[j].src="./Images/before.gif";
+        // var interval3= setInterval(function(){
+         document.getElementById(ObstaclesArr[j].uniqueId).remove();
+        // ObstaclesArr.shift();
+        //   clearInterval(interval3);
+        // }.bind(this),200)
+        // missleArr[i].delete(true);
+      }
+     missleArr[i].delete();
   }
+      
+   }
   };
   this.getIndex = function() {
     var index = Math.abs(this.carIndex) % this.lane;
@@ -195,38 +221,60 @@ function Game(parentElement) {
 
   function missile(parentElement)
   {
-    this.mx;
-    this.my;
+    this.mx=0;
+    this.my=0;
     this.muniqueId = Math.abs(Math.random() * 1000).toString();
     this.parentElement = parentElement;
-    this.dx=0.03;
+    this.dx=1;
     this.element=null;
 
-    this.mcreate=function(PoliceCar)
+    this.mcreate=function(x,y)
     {
+    //  console.log("x",x," y",y);
       var missle = document.createElement("img");
       missle.classList.add("missle");
-      missle.id = this.uniqueId;
+      missle.id = this.muniqueId;
       missle.src = "./Images/missile.png";
       this.parentElement.appendChild(missle);
-     missle.style.left = PoliceCar.posx + "px";
-     missle.style.top = PoliceCar.posy + "px";
+      this.my= y;
+      this.mx= x;
+      missle.style.left = this.mx + "px";
+     
+      missle.style.top = this.my + "px";
       this.element = missle;
     }
     this.move = function(speed) {
     
-      this.y = this.y - Math.exp(this.dx);
-      this.dx = this.dx + 0.005;
-      this.element.style.top = this.y + "px";
+      this.my = this.my - 1;
+      // this.dx = this.dx + 0.005;
+      this.element.style.top = this.my + "px";
+     
     };
-    this.checkCollision = function(Obsct) {
-      var a = this.x - Obsct.posx;
-      var b = Obsct.posy - this.y;
+    this.checkCollision = function(obscarry) {
+    
+      for(var i=0;i<obscarry.length;i++)
+      {
+      var a = this.mx - obscarry[i].x;
+      var b = obscarry[i].y - this.my;
       var dis = Math.sqrt(a * a + b * b);
-      if (dis < 200) {
+    
+      if (dis < 100) {
+     //   console.log("collision",dis)
         return true;
       } else {
         return false;
+      }
+     }
+     };
+    this.delete=function(yes)
+    {
+    
+      var a=yes||false
+      if (this.my <-60 || a===true) {
+        console.log("delete",missleArr.length);
+        document.getElementById(this.muniqueId).remove();
+        missleArr.shift();
+        console.log("delete",missleArr.length);
       }
     };
 
