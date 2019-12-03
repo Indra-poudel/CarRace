@@ -203,8 +203,9 @@ function Game(parentElement) {
        // clearInterval(this.repeat);
        //ObstaclesArr[j].src="./Images/before.gif";
         // var interval3= setInterval(function(){
+        //  if(ObstaclesArr.length)
          document.getElementById(ObstaclesArr[j].uniqueId).remove();
-        // ObstaclesArr.shift();
+         ObstaclesArr.shift();
         //   clearInterval(interval3);
         // }.bind(this),200)
         // missleArr[i].delete(true);
@@ -283,7 +284,7 @@ function Game(parentElement) {
 
   function Obstacles(parentElement) {
     this.uniqueId = Math.abs(Math.random() * 1000).toString();
-    this.y = -450;
+    this.y = -550;
     this.dx = 0.01;
     this.parentElement = parentElement;
     this.x = Math.floor(Math.random() * 3) * 200;
@@ -301,7 +302,7 @@ function Game(parentElement) {
     };
     this.move = function(speed) {
     
-      this.y = this.y + Math.exp(this.dx);
+      this.y = this.y +Math.exp(this.dx);
       this.dx = this.dx + 0.005;
       this.element.style.top = this.y + "px";
     };
